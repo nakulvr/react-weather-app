@@ -1,15 +1,49 @@
 import React from "react";
 
+class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { city: "boston", country: "usa" };
 
-class Form extends React.Component{
-    render(){
-        return(
-            <form onSubmit= {this.props.getWeather}>
-            <input type = "text" name = "city" placeholder= "City"/>
-            <input type = "text" name = "country" placeholder= "Country"/>
-            <button> Get Weather</button>
-            </form>
-        );
-    }
-};
+    this.handleCityChange = this.handleCityChange.bind(this);
+    this.handleCountryChange = this.handleCountryChange.bind(this);
+    console.log(this.props.children);
+  }
+  handleCityChange(event) {
+    this.setState({ city: event.target.value });
+  }
+  handleCountryChange(event) {
+    this.setState({ country: event.target.value });
+  }
+
+  render() {
+    return (
+      <div>
+        <input
+          type="text"
+          value={this.state.city}
+          onChange={this.handleCityChange}
+          name="city"
+          placeholder="City"
+        />
+
+        <input
+          type="text"
+          value={this.state.country}
+          onChange={this.handleCountryChange}
+          name="country"
+          placeholder="Country"
+        />
+
+        <button
+          onClick={() =>
+            this.props.getWeather(this.state.city, this.state.country)
+          }
+        >
+          Get Weather
+        </button>
+      </div>
+    );
+  }
+}
 export default Form;
