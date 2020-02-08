@@ -1,37 +1,34 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
-import Form from "./components/Form";
-import WeatherDataListComponent from "./components/WeatherDataListComponent";
-import getDays from "./services/DateConversionService";
-import getWeatherService from "./services/OpenWeatherService";
+import getBooks from "./services/BookService";
+import Book from "./components/Book";
 
 class App extends Component {
-  state = { city: "", country: "", days: [] };
-  getWeather = (city, country) => {
-    // add api validation here
-    if (city === "" || country === "") {
-      this.setState({ city: "", country: "", days: [] });
-    } else {
-      getWeatherService(city, country).then(data => {
-        var days = "";
-        //var days = getDays(data.list);
-        // console.log("printing days")
-        console.log(data)
-        this.setState({ city: city, country: country, days: days });
-      });
+  constructor(props) {
+    super(props);
+    this.state = {
+      books : getBooks()
     }
-  };
+  }
   render() {
-    return (
-      <Router>
-        <Form getWeather={this.getWeather}></Form>
-        <Route
-          to="/"
-          render={() => <WeatherDataListComponent days={this.state.days} />}
-        />
-      </Router>
-    );
+    return(<table>
+      <thead>
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+            Title
+          </th>
+          <th>
+            Author
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      {this.state.books.map((book, key) => <Book book={book} key={key}/>)}
+      </tbody>
+    </table>)
   }
 }
 

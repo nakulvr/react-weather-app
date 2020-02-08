@@ -1,2 +1,6 @@
-const API_KEY = "3ca96fb59c31db5a5a1284d995fa6a92";
-export default API_KEY;
+const API_URL = "http://localhost:8080/book";
+const USERNAME = "sonia@neu.com";
+const PASSWORD = "123456789";
+export default API_URL;
+export default USERNAME;
+export default PASSWORD;
